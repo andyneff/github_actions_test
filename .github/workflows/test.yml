@@ -27,6 +27,7 @@ jobs:
       - run: |
           docker run -it --rm foobar || :
   bar:
+    runs-on: ubuntu-latest
     needs: stuff
     steps:
       - run: docker run --rm foobar
