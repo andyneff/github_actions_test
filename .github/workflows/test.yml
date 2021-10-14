@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: docker info
-      - run: ls -la ~/.ssh/
+      - run: find ~
       - run: pwd; ls -la
       - name: Cache Source Code (not a great example, who cares)
         uses: actions/cache@v2
