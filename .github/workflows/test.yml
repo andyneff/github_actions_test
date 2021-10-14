@@ -23,9 +23,9 @@ jobs:
       - run: docker build -t foobar
       - run: docker run --rm foobar
       - run: |
-        docker run -i --rm foobar || :
+          docker run -i --rm foobar || :
       - run: |
-        docker run -it --rm foobar || :
+          docker run -it --rm foobar || :
   bar:
     needs: stuff
     steps:
