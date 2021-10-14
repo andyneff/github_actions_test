@@ -1,10 +1,6 @@
 name: GitHub Actions Test
 on: [push]
 jobs:
-  docker-info:
-    runs-on: ubuntu-latest
-    steps:
-      - run: docker info
   alpine-faccessto2-test:
     runs-on: ubuntu-latest
     container: alpine:3.14
@@ -13,13 +9,15 @@ jobs:
       - run: printf '#include <fcntl.h>\n#include <unistd.h>\n#include <stdio.h>\n#include <sys/syscall.h>\nint main(){int ret = syscall(SYS_faccessat2, 0, "/",  R_OK, AT_EACCESS); printf("ret = %%d\\n", ret);}' > foo.c
       - run: gcc foo.c
       - run: ./a.out
-  stuff:
+  foo:
     runs-on: ubuntu-latest
     steps:
+      - run: docker info
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
           submodules: true
+      - run: pwd; ls
       # - run: docker build -t foobar .
       - run: docker buildx build -t foobar .
       - run: docker run --rm foobar
@@ -29,8 +27,8 @@ jobs:
           script -q /dev/null -c "docker run -it --rm foobar"
   bar:
     runs-on: ubuntu-latest
-    needs: stuff
+    needs: foo
     steps:
-      - run: echo "This shows that the docker cache is not shared"
+      - run: echo "This shows that not even the docker cache is shared between jobs"
       - run: |
           ! docker run --rm foobar
