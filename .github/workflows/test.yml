@@ -31,4 +31,5 @@ jobs:
     needs: stuff
     steps:
       - run: echo "This shows that the docker cache is not shared"
-      - run: ! docker run --rm foobar
+      - run: |
+          ! docker run --rm foobar
