@@ -13,10 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: docker info
+      - run: pwd; ls
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
           submodules: true
+      - run: pwd; ls
+      - name: Cache Source Code (not a great example, who cares)
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/work
       - run: pwd; ls
       # - run: docker build -t foobar .
       - run: docker buildx build -t foobar .
