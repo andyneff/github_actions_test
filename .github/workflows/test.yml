@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     container: alpine:3.14
     steps:
-      - run: apk --no-cache add gcc
+      - run: apk --no-cache add gcc libc-dev
       - run: printf '#include <fcntl.h>\n#include <unistd.h>\n#include <stdio.h>\n#include <sys/syscall.h>\nint main(){int ret = syscall(SYS_faccessat2, 0, "/",  R_OK, AT_EACCESS); printf("ret = %%d\\n", ret);}' > foo.c
       - run: gcc foo.c
       - run: ./a.out
